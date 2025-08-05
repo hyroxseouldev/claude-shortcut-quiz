@@ -17,7 +17,7 @@ interface TerminalShortcut {
 }
 
 // 터미널 단축키 데이터 (퀴즈 옵션 포함)
-export const terminalShortcuts: TerminalShortcut[] = [
+const terminalShortcuts: TerminalShortcut[] = [
   // 1. 커서 이동 🚀
   {
     key: "Ctrl + A",
@@ -502,3 +502,4 @@ export const terminalShortcuts: TerminalShortcut[] = [
 ];
 
 export type { TerminalShortcut, QuizOption };
+export { terminalShortcuts };

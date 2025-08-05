@@ -195,11 +195,11 @@ export const getPersonalizedPractice = (
   // 약한 카테고리 찾기
   const weakCategories = Object.entries(stats.categoryStats)
     .filter(
-      ([_, categoryStats]) =>
+      ([, categoryStats]) =>
         categoryStats.total >= 3 &&
         categoryStats.correct / categoryStats.total < 0.7
     )
-    .map(([category, _]) => category);
+    .map(([category]) => category);
 
   // 추천 단축키 (틀린 것들 + 약한 카테고리)
   const incorrectShortcuts = results
