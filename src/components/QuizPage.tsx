@@ -1,22 +1,32 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Progress } from './ui/progress'
-import { Badge } from './ui/badge'
-import { Alert, AlertDescription } from './ui/alert'
-import { useQuizStore, useCurrentQuestion, useQuizProgress } from '../stores/quizStore'
-import { 
-  Lightbulb, 
-  ArrowLeft, 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Progress } from "./ui/progress";
+import { Badge } from "./ui/badge";
+import { Alert, AlertDescription } from "./ui/alert";
+import {
+  useQuizStore,
+  useCurrentQuestion,
+  useQuizProgress,
+} from "../stores/quizStore";
+import {
+  Lightbulb,
+  ArrowLeft,
+  Clock,
+  CheckCircle,
+  XCircle,
   Keyboard,
-  Sparkles 
-} from 'lucide-react'
+  Sparkles,
+} from "lucide-react";
 
 export function QuizPage() {
   const {
@@ -25,33 +35,33 @@ export function QuizPage() {
     answerQuestion,
     useHint: triggerHint,
     nextQuestion,
-    resetQuiz
-  } = useQuizStore()
-  
-  const currentQuestion = useCurrentQuestion()
-  const progress = useQuizProgress()
-  const [showHint, setShowHint] = useState(false)
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
+    resetQuiz,
+  } = useQuizStore();
+
+  const currentQuestion = useCurrentQuestion();
+  const progress = useQuizProgress();
+  const [showHint, setShowHint] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   // 피드백 후 자동으로 다음 문제로 넘어가기
   useEffect(() => {
     if (feedback.type !== null) {
       const timer = setTimeout(() => {
-        nextQuestion()
-        setSelectedAnswer(null)
-        setShowHint(false)
-      }, 1500) // 1.5초 후 자동 전환
+        nextQuestion();
+        setSelectedAnswer(null);
+        setShowHint(false);
+      }, 1500); // 1.5초 후 자동 전환
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     }
-  }, [feedback.type, nextQuestion])
+  }, [feedback.type, nextQuestion]);
 
   if (!currentQuestion) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50 dark:from-gray-900 dark:to-red-950">
         <Card className="max-w-md">
           <CardContent className="p-6 text-center">
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
+            <p className="text-muted-foreground mb-4">
               문제를 불러오는 중 오류가 발생했습니다.
             </p>
             <Button onClick={resetQuiz} variant="outline">
@@ -61,34 +71,34 @@ export function QuizPage() {
           </CardContent>
         </Card>
       </div>
-    )
+    );
   }
 
   const handleAnswerClick = (optionIndex: number) => {
-    if (feedback.type !== null) return // 이미 답변한 경우 클릭 방지
-    
-    setSelectedAnswer(optionIndex)
-    answerQuestion(optionIndex)
-  }
+    if (feedback.type !== null) return; // 이미 답변한 경우 클릭 방지
+
+    setSelectedAnswer(optionIndex);
+    answerQuestion(optionIndex);
+  };
 
   const handleHintClick = () => {
     if (!hintUsed) {
-      triggerHint()
-      setShowHint(true)
+      triggerHint();
+      setShowHint(true);
     }
-  }
+  };
 
   // 카테고리 아이콘 매핑
   const categoryIcons: Record<string, string> = {
     cursor: "🚀",
-    edit: "✏️", 
+    edit: "✏️",
     history: "📚",
     control: "🛠️",
-    advanced: "💡"
-  }
+    advanced: "💡",
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950">
+    <div className="min-h-screen bg-background/80 dark:bg-background/80">
       <div className="container mx-auto px-4 py-6">
         {/* 상단 바 */}
         <motion.div
@@ -99,7 +109,7 @@ export function QuizPage() {
           <Button
             variant="ghost"
             onClick={resetQuiz}
-            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className="text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             홈으로
@@ -107,9 +117,10 @@ export function QuizPage() {
 
           <div className="flex items-center gap-4">
             <Badge variant="secondary" className="text-sm">
-              {categoryIcons[currentQuestion.category]} {currentQuestion.category}
+              {categoryIcons[currentQuestion.category]}{" "}
+              {currentQuestion.category}
             </Badge>
-            <div className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="text-sm text-muted-foreground">
               <Clock className="w-4 h-4 inline mr-1" />
               {progress.current} / {progress.total}
             </div>
@@ -123,17 +134,14 @@ export function QuizPage() {
           className="mb-8"
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-muted-foreground">
               진행률
             </span>
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-muted-foreground/80">
               {Math.round(progress.percentage)}%
             </span>
           </div>
-          <Progress 
-            value={progress.percentage} 
-            className="h-2 bg-gray-200 dark:bg-gray-700"
-          />
+          <Progress value={progress.percentage} className="h-2" />
         </motion.div>
 
         {/* 문제 카드 */}
@@ -145,31 +153,33 @@ export function QuizPage() {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto"
         >
-          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-xl">
+          <Card className="bg-card/90 backdrop-blur-sm border-border shadow-xl">
             <CardHeader className="text-center pb-4">
               <div className="flex items-center justify-center gap-2 mb-4">
-                <Keyboard className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                <CardTitle className="text-xl md:text-2xl text-gray-900 dark:text-white">
+                <Keyboard className="w-6 h-6 text-primary" />
+                <CardTitle className="text-xl md:text-2xl text-foreground">
                   다음 단축키의 기능은?
                 </CardTitle>
               </div>
-              
+
               {/* 단축키 표시 */}
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-700 dark:to-gray-800 rounded-lg p-6 mb-4 border border-gray-200 dark:border-gray-600"
+                className="bg-muted rounded-lg p-6 mb-4 border border-border"
               >
-                <code className="text-2xl md:text-3xl font-mono font-bold text-blue-600 dark:text-blue-400">
+                <code className="text-2xl md:text-3xl font-mono font-bold text-primary">
                   {currentQuestion.key}
                 </code>
               </motion.div>
 
               {/* 카테고리 설명 */}
-              <CardDescription className="text-base text-gray-600 dark:text-gray-300">
+              <CardDescription className="text-base text-muted-foreground">
                 {currentQuestion.description && (
-                  <span className="text-sm italic">{currentQuestion.description}</span>
+                  <span className="text-sm italic">
+                    {currentQuestion.description}
+                  </span>
                 )}
               </CardDescription>
             </CardHeader>
@@ -188,7 +198,7 @@ export function QuizPage() {
                         variant={hintUsed ? "secondary" : "outline"}
                         onClick={handleHintClick}
                         disabled={hintUsed}
-                        className="bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 hover:bg-yellow-100 dark:hover:bg-yellow-900/30"
+                        className="bg-accent/20 border-accent/40 hover:bg-accent/30"
                       >
                         <Lightbulb className="w-4 h-4 mr-2" />
                         {hintUsed ? "힌트 사용됨" : "힌트 보기"}
@@ -200,9 +210,9 @@ export function QuizPage() {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
                     >
-                      <Alert className="max-w-md bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800">
-                        <Sparkles className="h-4 w-4 text-yellow-600" />
-                        <AlertDescription className="text-yellow-800 dark:text-yellow-200 font-medium">
+                      <Alert className="max-w-md bg-accent/20 border-accent/40">
+                        <Sparkles className="h-4 w-4 text-accent-foreground" />
+                        <AlertDescription className="text-accent-foreground font-medium">
                           💡 {currentQuestion.quizHint}
                         </AlertDescription>
                       </Alert>
@@ -214,25 +224,37 @@ export function QuizPage() {
               {/* 선택지들 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {currentQuestion.quizOptions.map((option, index: number) => {
-                  let buttonVariant: "default" | "outline" | "destructive" | "secondary" = "outline"
-                  let buttonClass = "h-auto p-4 text-left justify-start border-2 transition-all duration-200"
-                  let iconElement = null
+                  let buttonVariant:
+                    | "default"
+                    | "outline"
+                    | "destructive"
+                    | "secondary" = "outline";
+                  let buttonClass =
+                    "h-auto p-4 text-left justify-start border-2 transition-all duration-200";
+                  let iconElement = null;
 
                   // 피드백 상태에 따른 스타일링
                   if (feedback.type !== null) {
                     if (option.isCorrect) {
-                      buttonVariant = "default"
-                      buttonClass += " bg-green-100 dark:bg-green-900/30 border-green-500 text-green-800 dark:text-green-200"
-                      iconElement = <CheckCircle className="w-5 h-5 text-green-600" />
+                      buttonVariant = "default";
+                      buttonClass +=
+                        " bg-green-100 dark:bg-green-900/30 border-green-500 text-green-800 dark:text-green-200";
+                      iconElement = (
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                      );
                     } else if (selectedAnswer === index) {
-                      buttonVariant = "destructive"
-                      buttonClass += " bg-red-100 dark:bg-red-900/30 border-red-500 text-red-800 dark:text-red-200"  
-                      iconElement = <XCircle className="w-5 h-5 text-red-600" />
+                      buttonVariant = "destructive";
+                      buttonClass +=
+                        " bg-destructive/20 border-destructive text-destructive-foreground";
+                      iconElement = (
+                        <XCircle className="w-5 h-5 text-destructive" />
+                      );
                     } else {
-                      buttonClass += " opacity-60"
+                      buttonClass += " opacity-60";
                     }
                   } else {
-                    buttonClass += " hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                    buttonClass +=
+                      " hover:border-primary/50 hover:bg-primary/5";
                   }
 
                   return (
@@ -258,7 +280,7 @@ export function QuizPage() {
                         </div>
                       </Button>
                     </motion.div>
-                  )
+                  );
                 })}
               </div>
 
@@ -271,23 +293,27 @@ export function QuizPage() {
                     exit={{ opacity: 0, y: -20 }}
                     className="text-center pt-4"
                   >
-                    {feedback.type === 'correct' ? (
-                      <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
+                    {feedback.type === "correct" ? (
+                      <div className="flex items-center justify-center gap-2 text-green-600">
                         <CheckCircle className="w-6 h-6" />
-                        <span className="text-lg font-semibold">정답입니다! 🎉</span>
+                        <span className="text-lg font-semibold">
+                          정답입니다! 🎉
+                        </span>
                       </div>
                     ) : (
-                      <div className="flex items-center justify-center gap-2 text-red-600 dark:text-red-400">
+                      <div className="flex items-center justify-center gap-2 text-destructive">
                         <XCircle className="w-6 h-6" />
-                        <span className="text-lg font-semibold">아쉽네요! 다음엔 맞춰보세요 💪</span>
+                        <span className="text-lg font-semibold">
+                          아쉽네요! 다음엔 맞춰보세요 💪
+                        </span>
                       </div>
                     )}
-                    
+
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.5 }}
-                      className="text-sm text-gray-600 dark:text-gray-400 mt-2"
+                      className="text-sm text-muted-foreground mt-2"
                     >
                       잠시 후 다음 문제로 넘어갑니다...
                     </motion.p>
@@ -299,5 +325,5 @@ export function QuizPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
