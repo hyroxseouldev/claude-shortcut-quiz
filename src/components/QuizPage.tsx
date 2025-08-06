@@ -174,14 +174,14 @@ export function QuizPage() {
                 </code>
               </motion.div>
 
-              {/* 카테고리 설명 */}
+              {/* 카테고리 설명
               <CardDescription className="text-base text-muted-foreground">
                 {currentQuestion.description && (
                   <span className="text-sm italic">
                     {currentQuestion.description}
                   </span>
                 )}
-              </CardDescription>
+              </CardDescription> */}
             </CardHeader>
 
             <CardContent className="space-y-6">

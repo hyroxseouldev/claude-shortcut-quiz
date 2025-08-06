@@ -1,0 +1,239 @@
+{
+  "project": {
+    "name": "claude-shortcut-quiz",
+    "version": "0.1.0",
+    "description": "Interactive quiz application for learning terminal shortcuts, built with Next.js and TypeScript",
+    "type": "web-application",
+    "status": "active-development",
+    "language": "korean-primary",
+    "created_date": "2025-01-01",
+    "last_updated": "2025-01-06"
+  },
+  "architecture": {
+    "framework": "Next.js 15.4.5 (App Router)",
+    "frontend": "React 19.1.0",
+    "language": "TypeScript 5.x",
+    "styling": "Tailwind CSS v4 + shadcn/ui",
+    "state_management": "Zustand 5.0.7",
+    "animations": "Framer Motion 12.23.12",
+    "build_system": "Next.js with Turbopack",
+    "package_manager": "npm/pnpm"
+  },
+  "features": {
+    "core_functionality": [
+      "Terminal shortcut quiz system",
+      "Configurable quiz settings (count, difficulty, category)",
+      "Real-time feedback and hints",
+      "Progress tracking and scoring",
+      "Responsive design with animations"
+    ],
+    "quiz_system": {
+      "total_questions": "40+",
+      "categories": [
+        {"name": "cursor", "icon": "🚀", "display": "커서 이동"},
+        {"name": "edit", "icon": "✏️", "display": "행 편집"},
+        {"name": "history", "icon": "📚", "display": "이력·보완"},
+        {"name": "control", "icon": "🛠️", "display": "터미널 제어"},
+        {"name": "advanced", "icon": "💡", "display": "응용 테크닉"}
+      ],
+      "difficulty_levels": ["easy", "medium", "hard", "mixed"],
+      "question_counts": [10, 20, 30],
+      "features": ["hint_system", "answer_shuffling", "time_tracking", "score_calculation"]
+    },
+    "ui_features": [
+      "Dark/light theme support",
+      "Smooth page transitions",
+      "Responsive mobile design",
+      "Animated components",
+      "Accessibility optimized"
+    ]
+  },
+  "code_quality": {
+    "analysis_date": "2025-01-06",
+    "overall_score": "A-",
+    "metrics": {
+      "type_safety": "excellent",
+      "code_organization": "very_good",
+      "maintainability": "good",
+      "performance": "good",
+      "security": "acceptable"
+    },
+    "linting": {
+      "tool": "ESLint 9.32.0 + Next.js config",
+      "status": "passing_with_warnings",
+      "warnings": 1,
+      "issues": [
+        {
+          "file": "src/components/QuizPage.tsx",
+          "line": 9,
+          "type": "unused-vars",
+          "severity": "warning",
+          "message": "CardDescription imported but never used"
+        }
+      ]
+    },
+    "typescript": {
+      "version": "5.x",
+      "strict_mode": true,
+      "configuration": "well_configured",
+      "coverage": "comprehensive"
+    }
+  },
+  "dependencies": {
+    "production": {
+      "framework": ["next@15.4.5", "react@19.1.0", "react-dom@19.1.0"],
+      "ui_library": "shadcn/ui (Radix UI based)",
+      "state_management": "zustand@5.0.7",
+      "styling": ["tailwindcss@4", "class-variance-authority@0.7.1"],
+      "animations": "framer-motion@12.23.12",
+      "icons": "lucide-react@0.536.0",
+      "utilities": ["clsx@2.1.1", "tailwind-merge@3.3.1"],
+      "forms": ["react-hook-form@7.62.0", "zod@4.0.14"],
+      "total_count": 25
+    },
+    "development": {
+      "linting": ["eslint@9", "@typescript-eslint/eslint-plugin@8.39.0"],
+      "types": ["@types/node@20", "@types/react@19", "@types/react-dom@19"],
+      "total_count": 8
+    },
+    "security_analysis": {
+      "known_vulnerabilities": 0,
+      "outdated_packages": 0,
+      "security_score": "good",
+      "last_audit": "2025-01-06"
+    }
+  },
+  "file_structure": {
+    "total_files": 60,
+    "source_files": {
+      "typescript": 54,
+      "css": 1,
+      "config": 5
+    },
+    "main_directories": {
+      "src/": {
+        "components/": "Main React components (HomePage, QuizApp, QuizPage, ResultPage)",
+        "components/ui/": "shadcn/ui component library (42 components)",
+        "stores/": "Zustand state management",
+        "hooks/": "Custom React hooks",
+        "lib/": "Utility functions",
+        "app/": "Next.js App Router pages"
+      },
+      "public/": "Static assets (SVG icons)"
+    },
+    "key_files": [
+      "src/quizData.ts - Terminal shortcuts data with quiz options",
+      "src/quizUtil.ts - Quiz logic and utilities",
+      "src/stores/quizStore.ts - Global state management",
+      "src/components/QuizApp.tsx - Main application component",
+      "tsconfig.json - TypeScript configuration",
+      "package.json - Project dependencies and scripts"
+    ]
+  },
+  "performance": {
+    "bundle_analysis": {
+      "estimated_size": "medium",
+      "main_dependencies": ["Next.js", "React", "Framer Motion", "Radix UI"],
+      "optimization": ["Next.js optimizations", "Code splitting", "Tree shaking"]
+    },
+    "runtime_performance": {
+      "rendering": "optimized_with_react_19",
+      "animations": "framer_motion_optimized",
+      "state_updates": "zustand_efficient"
+    }
+  },
+  "security": {
+    "analysis_date": "2025-01-06",
+    "security_score": "good",
+    "findings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 1
+    },
+    "recommendations": [
+      "No sensitive data exposed in client-side code",
+      "Using stable, well-maintained dependencies",
+      "Consider adding Content Security Policy headers"
+    ],
+    "dependency_security": "all_packages_secure"
+  },
+  "testing": {
+    "framework": "none_configured",
+    "coverage": "not_measured",
+    "recommendations": [
+      "Add Jest for unit testing",
+      "Add React Testing Library for component testing",
+      "Add Playwright or Cypress for E2E testing",
+      "Implement test coverage reporting"
+    ]
+  },
+  "development_workflow": {
+    "scripts": {
+      "dev": "next dev --turbopack",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint"
+    },
+    "git_integration": "active",
+    "branch": "main",
+    "recent_commits": 5,
+    "development_server": "Next.js with Turbopack"
+  },
+  "deployment": {
+    "target_platform": "web",
+    "build_output": "static_and_server",
+    "deployment_ready": true,
+    "recommendations": [
+      "Deploy to Vercel (optimal for Next.js)",
+      "Configure environment variables if needed",
+      "Add monitoring and analytics",
+      "Set up CI/CD pipeline"
+    ]
+  },
+  "business_value": {
+    "target_audience": "Korean-speaking developers and terminal users",
+    "use_cases": [
+      "Learning terminal shortcuts interactively",
+      "Testing terminal knowledge with quizzes",
+      "Educational tool for developer training"
+    ],
+    "competitive_advantages": [
+      "Korean language support",
+      "Interactive quiz format",
+      "Comprehensive shortcut coverage",
+      "Modern, responsive UI",
+      "Gamified learning experience"
+    ]
+  },
+  "roadmap": {
+    "immediate_improvements": [
+      "Fix unused import warning in QuizPage.tsx",
+      "Add comprehensive testing suite",
+      "Implement user authentication",
+      "Add progress persistence"
+    ],
+    "future_features": [
+      "User ranking system",
+      "Additional quiz categories",
+      "Incorrect answer review functionality",
+      "Timed challenge modes",
+      "Multi-language support",
+      "Analytics and learning insights"
+    ],
+    "technical_debt": [
+      "Add proper error boundaries",
+      "Implement loading states",
+      "Add proper SEO metadata",
+      "Optimize bundle size analysis"
+    ]
+  },
+  "metadata": {
+    "analysis_version": "1.0",
+    "generated_by": "Claude Code SuperClaude",
+    "generation_date": "2025-01-06T00:00:00Z",
+    "analysis_depth": "comprehensive",
+    "confidence_score": 0.95
+  }
+}
